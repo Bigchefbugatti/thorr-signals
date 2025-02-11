@@ -15,9 +15,9 @@ plotSignalBox(entryLow, entryHigh, signalType, timeframeCondition, offsetLevel) 
         
         // Create label text with appropriate number formatting
         labelText = signalType + " Entry Zone\n" + 
-            (boxTop < 0.001 ? str.tostring(boxTop, "#.##########") : str.tostring(boxTop, "#.######")) + 
+            (str.tostring(boxTop < 0.001 ? boxTop : boxTop, boxTop < 0.001 ? "#.##########" : "#.######")) + 
             " - " + 
-            (boxBottom < 0.001 ? str.tostring(boxBottom, "#.##########") : str.tostring(boxBottom, "#.######"))
+            (str.tostring(boxBottom < 0.001 ? boxBottom : boxBottom, boxBottom < 0.001 ? "#.##########" : "#.######"))
         
         // Delete previous box and label
         box.delete(signalBox)
@@ -80,10 +80,10 @@ var float signalLongEntry1hHigh4 = na
 var float signalLongEntry1hLow5 = na
 var float signalLongEntry1hHigh5 = na
 
-var float signalShortEntry1hLow1 = 0.0000202632
-var float signalShortEntry1hHigh1 = 0.0000203700
-var float signalShortEntry1hLow2 = 0.0000195334
-var float signalShortEntry1hHigh2 = 0.0000198600
+var float signalShortEntry1hLow1 = na
+var float signalShortEntry1hHigh1 = na
+var float signalShortEntry1hLow2 = na
+var float signalShortEntry1hHigh2 = na
 var float signalShortEntry1hLow3 = na
 var float signalShortEntry1hHigh3 = na
 var float signalShortEntry1hLow4 = na
@@ -115,8 +115,8 @@ var float signalShortEntry4hLow5 = na
 var float signalShortEntry4hHigh5 = na
 
 // 1d timeframe signals
-var float signalLongEntry1dLow1 = 0.0000034600
-var float signalLongEntry1dHigh1 = 0.0000053153
+var float signalLongEntry1dLow1 = na
+var float signalLongEntry1dHigh1 = na
 var float signalLongEntry1dLow2 = na
 var float signalLongEntry1dHigh2 = na
 var float signalLongEntry1dLow3 = na
@@ -126,8 +126,8 @@ var float signalLongEntry1dHigh4 = na
 var float signalLongEntry1dLow5 = na
 var float signalLongEntry1dHigh5 = na
 
-var float signalShortEntry1dLow1 = 0.0000495346
-var float signalShortEntry1dHigh1 = 0.0000507755
+var float signalShortEntry1dLow1 = na
+var float signalShortEntry1dHigh1 = na
 var float signalShortEntry1dLow2 = na
 var float signalShortEntry1dHigh2 = na
 var float signalShortEntry1dLow3 = na
