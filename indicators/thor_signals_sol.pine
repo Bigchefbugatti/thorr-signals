@@ -102,8 +102,8 @@ var float signalShortEntry4hLow5 = na
 var float signalShortEntry4hHigh5 = na
 
 // 1d Signal Variables
-var float signalLongEntry1dLow1 = na
-var float signalLongEntry1dHigh1 = na
+var float signalLongEntry1dLow1 = 142.35
+var float signalLongEntry1dHigh1 = 151.926
 var float signalLongEntry1dLow2 = na
 var float signalLongEntry1dHigh2 = na
 var float signalLongEntry1dLow3 = na
