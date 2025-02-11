@@ -1,4 +1,4 @@
-//@version=5
+//@version=6
 indicator("THOR CALLS - BONK", overlay=true)
 
 // Input for how many bars the boxes should extend
@@ -236,13 +236,15 @@ if not na(signalShortEntry1dLow5) and not na(signalShortEntry1dHigh5)
     plotSignalBox(signalShortEntry1dLow5, signalShortEntry1dHigh5, "Short", is1d, 2)
 
 // Alert conditions
-alertcondition(is15mLong1 or is15mLong2 or is15mLong3 or is15mLong4 or is15mLong5 or 
-               is15mShort1 or is15mShort2 or is15mShort3 or is15mShort4 or is15mShort5 or 
-               is1hLong1 or is1hLong2 or is1hLong3 or is1hLong4 or is1hLong5 or 
-               is1hShort1 or is1hShort2 or is1hShort3 or is1hShort4 or is1hShort5 or 
-               is4hLong1 or is4hLong2 or is4hLong3 or is4hLong4 or is4hLong5 or 
-               is4hShort1 or is4hShort2 or is4hShort3 or is4hShort4 or is4hShort5 or 
-               is1dLong1 or is1dLong2 or is1dLong3 or is1dLong4 or is1dLong5 or 
-               is1dShort1 or is1dShort2 or is1dShort3 or is1dShort4 or is1dShort5, 
-               title="THOR Signal Zone Alert", 
-               message="THOR Signal Zone Alert")
+alertcondition(
+    is15mLong1 or is15mLong2 or is15mLong3 or is15mLong4 or is15mLong5 or 
+    is15mShort1 or is15mShort2 or is15mShort3 or is15mShort4 or is15mShort5 or 
+    is1hLong1 or is1hLong2 or is1hLong3 or is1hLong4 or is1hLong5 or 
+    is1hShort1 or is1hShort2 or is1hShort3 or is1hShort4 or is1hShort5 or 
+    is4hLong1 or is4hLong2 or is4hLong3 or is4hLong4 or is4hLong5 or 
+    is4hShort1 or is4hShort2 or is4hShort3 or is4hShort4 or is4hShort5 or 
+    is1dLong1 or is1dLong2 or is1dLong3 or is1dLong4 or is1dLong5 or 
+    is1dShort1 or is1dShort2 or is1dShort3 or is1dShort4 or is1dShort5, 
+    title="THOR Signal Zone Alert", 
+    message="THOR Signal Zone Alert"
+)
