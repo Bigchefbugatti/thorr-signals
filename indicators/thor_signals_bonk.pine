@@ -1,4 +1,4 @@
-//@version=6
+//@version=5
 indicator("THOR CALLS - BONK", overlay=true)
 
 // Input for how many bars the boxes should extend
@@ -15,9 +15,9 @@ plotSignalBox(entryLow, entryHigh, signalType, timeframeCondition, offsetLevel) 
         
         // Create label text with appropriate number formatting
         labelText = signalType + " Entry Zone\n" + 
-            (str.tostring(boxTop < 0.001 ? boxTop : boxTop, boxTop < 0.001 ? "#.##########" : "#.######")) + 
+            (boxTop < 0.001 ? str.tostring(boxTop, "#.##########") : str.tostring(boxTop, "#.######")) + 
             " - " + 
-            (str.tostring(boxBottom < 0.001 ? boxBottom : boxBottom, boxBottom < 0.001 ? "#.##########" : "#.######"))
+            (boxBottom < 0.001 ? str.tostring(boxBottom, "#.##########") : str.tostring(boxBottom, "#.######"))
         
         // Delete previous box and label
         box.delete(signalBox)
@@ -80,10 +80,10 @@ var float signalLongEntry1hHigh4 = na
 var float signalLongEntry1hLow5 = na
 var float signalLongEntry1hHigh5 = na
 
-var float signalShortEntry1hLow1 = 0.0000202632
-var float signalShortEntry1hHigh1 = 0.0000203700
-var float signalShortEntry1hLow2 = 0.0000195334
-var float signalShortEntry1hHigh2 = 0.0000198600
+var float signalShortEntry1hLow1 = na
+var float signalShortEntry1hHigh1 = na
+var float signalShortEntry1hLow2 = na
+var float signalShortEntry1hHigh2 = na
 var float signalShortEntry1hLow3 = na
 var float signalShortEntry1hHigh3 = na
 var float signalShortEntry1hLow4 = na
@@ -115,8 +115,8 @@ var float signalShortEntry4hLow5 = na
 var float signalShortEntry4hHigh5 = na
 
 // 1d timeframe signals
-var float signalLongEntry1dLow1 = 0.0000034600
-var float signalLongEntry1dHigh1 = 0.0000053153
+var float signalLongEntry1dLow1 = na
+var float signalLongEntry1dHigh1 = na
 var float signalLongEntry1dLow2 = na
 var float signalLongEntry1dHigh2 = na
 var float signalLongEntry1dLow3 = na
@@ -126,8 +126,8 @@ var float signalLongEntry1dHigh4 = na
 var float signalLongEntry1dLow5 = na
 var float signalLongEntry1dHigh5 = na
 
-var float signalShortEntry1dLow1 = 0.0000495346
-var float signalShortEntry1dHigh1 = 0.0000507755
+var float signalShortEntry1dLow1 = na
+var float signalShortEntry1dHigh1 = na
 var float signalShortEntry1dLow2 = na
 var float signalShortEntry1dHigh2 = na
 var float signalShortEntry1dLow3 = na
@@ -234,3 +234,15 @@ if not na(signalShortEntry1dLow4) and not na(signalShortEntry1dHigh4)
     plotSignalBox(signalShortEntry1dLow4, signalShortEntry1dHigh4, "Short", is1d, 1.5)
 if not na(signalShortEntry1dLow5) and not na(signalShortEntry1dHigh5)
     plotSignalBox(signalShortEntry1dLow5, signalShortEntry1dHigh5, "Short", is1d, 2)
+
+// Alert conditions
+alertcondition(is15mLong1 or is15mLong2 or is15mLong3 or is15mLong4 or is15mLong5 or 
+               is15mShort1 or is15mShort2 or is15mShort3 or is15mShort4 or is15mShort5 or 
+               is1hLong1 or is1hLong2 or is1hLong3 or is1hLong4 or is1hLong5 or 
+               is1hShort1 or is1hShort2 or is1hShort3 or is1hShort4 or is1hShort5 or 
+               is4hLong1 or is4hLong2 or is4hLong3 or is4hLong4 or is4hLong5 or 
+               is4hShort1 or is4hShort2 or is4hShort3 or is4hShort4 or is4hShort5 or 
+               is1dLong1 or is1dLong2 or is1dLong3 or is1dLong4 or is1dLong5 or 
+               is1dShort1 or is1dShort2 or is1dShort3 or is1dShort4 or is1dShort5, 
+               title="THOR Signal Zone Alert", 
+               message="THOR Signal Zone Alert")
