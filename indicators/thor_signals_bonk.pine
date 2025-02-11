@@ -14,7 +14,11 @@ plotSignalBox(entryLow, entryHigh, signalType, timeframeCondition, offsetLevel) 
         boxBottom = entryLow
         
         // Create label text with appropriate number formatting
-        labelText = signalType + " Entry Zone\n" + (boxTop < 0.001 ? str.tostring(boxTop, "#.##########") : str.tostring(boxTop, "#.######")) + " - " + (boxBottom < 0.001 ? str.tostring(boxBottom, "#.##########") : str.tostring(boxBottom, "#.######"))
+        labelText = str.format("{0} Entry Zone\n{1} - {2}", 
+            signalType, 
+            boxTop < 0.001 ? str.tostring(boxTop, "#.##########") : str.tostring(boxTop, "#.######"), 
+            boxBottom < 0.001 ? str.tostring(boxBottom, "#.##########") : str.tostring(boxBottom, "#.######")
+        )
         
         // Delete previous box and label
         box.delete(signalBox)
