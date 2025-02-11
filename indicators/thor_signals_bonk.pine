@@ -1,4 +1,4 @@
-//@version=6
+//@version=5
 indicator("THOR CALLS - BONK", overlay=true)
 
 // Input for how many bars the boxes should extend
@@ -14,10 +14,7 @@ plotSignalBox(entryLow, entryHigh, signalType, timeframeCondition, offsetLevel) 
         boxBottom = entryLow
         
         // Create label text with appropriate number formatting
-        labelText = signalType + " Entry Zone\n" + 
-            (boxTop < 0.001 ? str.tostring(boxTop, "#.##########") : str.tostring(boxTop, "#.######")) + 
-            " - " + 
-            (boxBottom < 0.001 ? str.tostring(boxBottom, "#.##########") : str.tostring(boxBottom, "#.######"))
+        labelText = signalType + " Entry Zone\n" + (boxTop < 0.001 ? str.tostring(boxTop, "#.##########") : str.tostring(boxTop, "#.######")) + " - " + (boxBottom < 0.001 ? str.tostring(boxBottom, "#.##########") : str.tostring(boxBottom, "#.######"))
         
         // Delete previous box and label
         box.delete(signalBox)
