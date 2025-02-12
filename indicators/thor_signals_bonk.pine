@@ -23,7 +23,7 @@ plotSignalBox(entryLow, entryHigh, signalType, timeframeCondition, offsetLevel) 
         var box = box.new(left=leftBar, top=boxTop, right=rightBar, bottom=boxBottom, border_color=borderColor, border_width=2, border_style=line.style_solid, bgcolor=boxColor, extend=extend.none)
         
         // Label with progressive offset for overlapping signals (all on one line)
-        labelText = signalType + " Entry Zone\n" + (boxTop < 0.0001 ? str.tostring(boxTop, "#.##########") : str.tostring(boxTop, "#.########")) + " - " + (boxBottom < 0.0001 ? str.tostring(boxBottom, "#.##########") : str.tostring(boxBottom, "#.########"))
+        labelText = signalType + " Entry Zone\n" + str.tostring(boxTop, "#.############") + " - " + str.tostring(boxBottom, "#.############")
         labelYPos = boxTop + (boxTop * 0.01 * offsetLevel)
         
         var label = label.new(x=rightBar + 5, y=labelYPos, text=labelText, color=color.new(color.white, 70), textcolor=borderColor, style=label.style_label_left, yloc=yloc.price, size=size.normal)
@@ -66,10 +66,10 @@ var float signalLongEntry1hHigh4 = na
 var float signalLongEntry1hLow5 = na
 var float signalLongEntry1hHigh5 = na
 
-var float signalShortEntry1hLow1 = 0.0000202632
-var float signalShortEntry1hHigh1 = 0.0000203700
-var float signalShortEntry1hLow2 = 0.0000195334
-var float signalShortEntry1hHigh2 = 0.0000198600
+var float signalShortEntry1hLow1 = na
+var float signalShortEntry1hHigh1 = na
+var float signalShortEntry1hLow2 = na
+var float signalShortEntry1hHigh2 = na
 var float signalShortEntry1hLow3 = na
 var float signalShortEntry1hHigh3 = na
 var float signalShortEntry1hLow4 = na
@@ -101,8 +101,8 @@ var float signalShortEntry4hLow5 = na
 var float signalShortEntry4hHigh5 = na
 
 // 1d timeframe signals
-var float signalLongEntry1dLow1 = 0.0000034600
-var float signalLongEntry1dHigh1 = 0.0000053153
+var float signalLongEntry1dLow1 = na
+var float signalLongEntry1dHigh1 = na
 var float signalLongEntry1dLow2 = na
 var float signalLongEntry1dHigh2 = na
 var float signalLongEntry1dLow3 = na
@@ -112,8 +112,8 @@ var float signalLongEntry1dHigh4 = na
 var float signalLongEntry1dLow5 = na
 var float signalLongEntry1dHigh5 = na
 
-var float signalShortEntry1dLow1 = 0.0000495346
-var float signalShortEntry1dHigh1 = 0.0000507755
+var float signalShortEntry1dLow1 = na
+var float signalShortEntry1dHigh1 = na
 var float signalShortEntry1dLow2 = na
 var float signalShortEntry1dHigh2 = na
 var float signalShortEntry1dLow3 = na
@@ -261,6 +261,5 @@ if timeframe.period == "D" or timeframe.period == "1440" or timeframe.period == 
     if not na(signalShortEntry1dLow5) and not na(signalShortEntry1dHigh5)
         plotSignalBox(signalShortEntry1dLow5, signalShortEntry1dHigh5, "Short", true, 2)
 
-
 // Alert conditions
-alertcondition(is15mLong1 or is15mLong2 or is15mLong3 or is15mLong4 or is15mLong5 or is15mShort1 or is15mShort2 or is15mShort3 or is15mShort4 or is15mShort5 or is1hLong1 or is1hLong2 or is1hLong3 or is1hLong4 or is1hLong5 or is1hShort1 or is1hShort2 or is1hShort3 or is1hShort4 or is1hShort5 or is4hLong1 or is4hLong2 or is4hLong3 or is4hLong4 or is4hLong5 or is4hShort1 or is4hShort2 or is4hShort3 or is4hShort4 or is4hShort5 or is1dLong1 or is1dLong2 or is1dLong3 or is1dLong4 or is1dLong5 or is1dShort1 or is1dShort2 or is1dShort3 or is1dShort4 or is1dShort5, title="THOR Signal Zone Alert", message="THOR Signal Zone Alert")
+alertcondition(is15mLong1 or is15mLong2 or is15mLong3 or is15mLong4 or is15mLong5 or is15mShort1 or is15mShort2 or is15mShort3 or is15mShort4 or is15mShort5 or is1hLong1 or is1hLong2 or is1hLong3 or is1hLong4 or is1hLong5 or is1hShort1 or is1hShort2 or is1hShort3 or is1hShort4 or is1hShort5 or is4hLong1 or is4hLong2 or is4hLong3 or is4hLong4 or is4hLong5 or is4hShort1 or is4hShort2 or is4hShort3 or is4hShort4 or is4hShort5 or is1dLong1 or is1dLong2 or is1dLong3 or is1dLong4 or is1dLong5 or is1dShort1 or is1dShort2 or is1dShort3 or is1dShort4 or is1dShort5, title="THOR Signal Zone Alert", message="Price entered a THOR signal zone")
