@@ -1,4 +1,4 @@
-//@version=5
+//@version=6
 indicator("THOR CALLS - BONK", overlay=true)
 
 // Input for how many bars the boxes should extend
@@ -6,47 +6,34 @@ boxLength = input.int(30, title="Box Length (Bars)")
 
 // Function to plot signal boxes and labels
 plotSignalBox(entryLow, entryHigh, signalType, timeframeCondition, offsetLevel) =>
-    if not na(entryLow) and not na(entryHigh) and timeframeCondition
-        var box signalBox = na
-        var label signalLabel = na
+    if timeframeCondition and barstate.islast
+        // Colors
+        boxColor = signalType == "Long" ? color.new(color.green, 80) : color.new(color.red, 80)
+        borderColor = signalType == "Long" ? color.green : color.red
         
-        boxTop = entryHigh
-        boxBottom = entryLow
+        // Price levels
+        boxTop = math.max(entryHigh, entryLow)
+        boxBottom = math.min(entryHigh, entryLow)
         
-        // Create label text with appropriate number formatting
-        labelText = str.format("{0} Entry Zone\n{1} - {2}", 
-            signalType, 
-            boxTop < 0.001 ? str.tostring(boxTop, "#.##########") : str.tostring(boxTop, "#.######"), 
-            boxBottom < 0.001 ? str.tostring(boxBottom, "#.##########") : str.tostring(boxBottom, "#.######")
-        )
+        // Calculate box positions (centered on current bar)
+        leftBar = bar_index - (boxLength / 2)
+        rightBar = bar_index + (boxLength / 2)
         
-        // Delete previous box and label
-        box.delete(signalBox)
-        label.delete(signalLabel)
+        // Box and Label are created only once using var
+        var box = box.new(left=leftBar, top=boxTop, right=rightBar, bottom=boxBottom, border_color=borderColor, border_width=2, border_style=line.style_solid, bgcolor=boxColor, extend=extend.none)
         
-        // Plot new box
-        signalBox := box.new(
-            left=bar_index,
-            top=boxTop,
-            right=bar_index + boxLength,
-            bottom=boxBottom,
-            border_color=signalType == "Long" ? color.green : color.red,
-            bgcolor=signalType == "Long" ? color.new(color.green, 90) : color.new(color.red, 90)
-        )
+        // Label with progressive offset for overlapping signals
+        topStr = boxTop < 0.0001 ? str.tostring(boxTop, "#.##########") : str.tostring(boxTop, "#.########")
+        bottomStr = boxBottom < 0.0001 ? str.tostring(boxBottom, "#.##########") : str.tostring(boxBottom, "#.########")
+        labelText = signalType + " Entry Zone\n" + topStr + " - " + bottomStr
+        labelYPos = boxTop + (boxTop * 0.01 * offsetLevel)
         
-        // Plot new label
-        signalLabel := label.new(
-            x=bar_index + boxLength,
-            y=boxTop,
-            text=labelText,
-            color=signalType == "Long" ? color.green : color.red,
-            textcolor=signalType == "Long" ? color.green : color.red,
-            style=label.style_label_left,
-            yloc=yloc.price,
-            offset=offsetLevel
-        )
+        var label = label.new(x=rightBar + 5, y=labelYPos, text=labelText, color=color.new(color.white, 70), textcolor=borderColor, style=label.style_label_left, yloc=yloc.price, size=size.normal)
 
-// 15m timeframe signals
+// Check if price is within any signal zone
+priceInZone(price, low, high) => price >= math.min(low, high) and price <= math.max(low, high)
+
+// Signal Variables
 var float signalLongEntry15mLow1 = na
 var float signalLongEntry15mHigh1 = na
 var float signalLongEntry15mLow2 = na
@@ -81,10 +68,10 @@ var float signalLongEntry1hHigh4 = na
 var float signalLongEntry1hLow5 = na
 var float signalLongEntry1hHigh5 = na
 
-var float signalShortEntry1hLow1 = 0.0000202632
-var float signalShortEntry1hHigh1 = 0.0000203700
-var float signalShortEntry1hLow2 = 0.0000195334
-var float signalShortEntry1hHigh2 = 0.0000198600
+var float signalShortEntry1hLow1 = na
+var float signalShortEntry1hHigh1 = na
+var float signalShortEntry1hLow2 = na
+var float signalShortEntry1hHigh2 = na
 var float signalShortEntry1hLow3 = na
 var float signalShortEntry1hHigh3 = na
 var float signalShortEntry1hLow4 = na
@@ -116,8 +103,8 @@ var float signalShortEntry4hLow5 = na
 var float signalShortEntry4hHigh5 = na
 
 // 1d timeframe signals
-var float signalLongEntry1dLow1 = 0.0000034600
-var float signalLongEntry1dHigh1 = 0.0000053153
+var float signalLongEntry1dLow1 = na
+var float signalLongEntry1dHigh1 = na
 var float signalLongEntry1dLow2 = na
 var float signalLongEntry1dHigh2 = na
 var float signalLongEntry1dLow3 = na
@@ -127,8 +114,8 @@ var float signalLongEntry1dHigh4 = na
 var float signalLongEntry1dLow5 = na
 var float signalLongEntry1dHigh5 = na
 
-var float signalShortEntry1dLow1 = 0.0000495346
-var float signalShortEntry1dHigh1 = 0.0000507755
+var float signalShortEntry1dLow1 = na
+var float signalShortEntry1dHigh1 = na
 var float signalShortEntry1dLow2 = na
 var float signalShortEntry1dHigh2 = na
 var float signalShortEntry1dLow3 = na
@@ -142,99 +129,100 @@ var float signalShortEntry1dHigh5 = na
 is15m = timeframe.period == "15"
 is1h = timeframe.period == "60"
 is4h = timeframe.period == "240"
-is1d = timeframe.period == "1D"
+is1d = timeframe.period == "D" or timeframe.period == "1440" or timeframe.period == "1D"
 
-// Plot 15m signals
-if not na(signalLongEntry15mLow1) and not na(signalLongEntry15mHigh1)
-    plotSignalBox(signalLongEntry15mLow1, signalLongEntry15mHigh1, "Long", is15m, 0)
-if not na(signalLongEntry15mLow2) and not na(signalLongEntry15mHigh2)
-    plotSignalBox(signalLongEntry15mLow2, signalLongEntry15mHigh2, "Long", is15m, 0.5)
-if not na(signalLongEntry15mLow3) and not na(signalLongEntry15mHigh3)
-    plotSignalBox(signalLongEntry15mLow3, signalLongEntry15mHigh3, "Long", is15m, 1)
-if not na(signalLongEntry15mLow4) and not na(signalLongEntry15mHigh4)
-    plotSignalBox(signalLongEntry15mLow4, signalLongEntry15mHigh4, "Long", is15m, 1.5)
-if not na(signalLongEntry15mLow5) and not na(signalLongEntry15mHigh5)
-    plotSignalBox(signalLongEntry15mLow5, signalLongEntry15mHigh5, "Long", is15m, 2)
+// Plot signals
+if is15m
+    if not na(signalLongEntry15mLow1) and not na(signalLongEntry15mHigh1)
+        plotSignalBox(signalLongEntry15mLow1, signalLongEntry15mHigh1, "Long", true, 0)
+    if not na(signalLongEntry15mLow2) and not na(signalLongEntry15mHigh2)
+        plotSignalBox(signalLongEntry15mLow2, signalLongEntry15mHigh2, "Long", true, 0.5)
+    if not na(signalLongEntry15mLow3) and not na(signalLongEntry15mHigh3)
+        plotSignalBox(signalLongEntry15mLow3, signalLongEntry15mHigh3, "Long", true, 1)
+    if not na(signalLongEntry15mLow4) and not na(signalLongEntry15mHigh4)
+        plotSignalBox(signalLongEntry15mLow4, signalLongEntry15mHigh4, "Long", true, 1.5)
+    if not na(signalLongEntry15mLow5) and not na(signalLongEntry15mHigh5)
+        plotSignalBox(signalLongEntry15mLow5, signalLongEntry15mHigh5, "Long", true, 2)
 
-if not na(signalShortEntry15mLow1) and not na(signalShortEntry15mHigh1)
-    plotSignalBox(signalShortEntry15mLow1, signalShortEntry15mHigh1, "Short", is15m, 0)
-if not na(signalShortEntry15mLow2) and not na(signalShortEntry15mHigh2)
-    plotSignalBox(signalShortEntry15mLow2, signalShortEntry15mHigh2, "Short", is15m, 0.5)
-if not na(signalShortEntry15mLow3) and not na(signalShortEntry15mHigh3)
-    plotSignalBox(signalShortEntry15mLow3, signalShortEntry15mHigh3, "Short", is15m, 1)
-if not na(signalShortEntry15mLow4) and not na(signalShortEntry15mHigh4)
-    plotSignalBox(signalShortEntry15mLow4, signalShortEntry15mHigh4, "Short", is15m, 1.5)
-if not na(signalShortEntry15mLow5) and not na(signalShortEntry15mHigh5)
-    plotSignalBox(signalShortEntry15mLow5, signalShortEntry15mHigh5, "Short", is15m, 2)
+    if not na(signalShortEntry15mLow1) and not na(signalShortEntry15mHigh1)
+        plotSignalBox(signalShortEntry15mLow1, signalShortEntry15mHigh1, "Short", true, 0)
+    if not na(signalShortEntry15mLow2) and not na(signalShortEntry15mHigh2)
+        plotSignalBox(signalShortEntry15mLow2, signalShortEntry15mHigh2, "Short", true, 0.5)
+    if not na(signalShortEntry15mLow3) and not na(signalShortEntry15mHigh3)
+        plotSignalBox(signalShortEntry15mLow3, signalShortEntry15mHigh3, "Short", true, 1)
+    if not na(signalShortEntry15mLow4) and not na(signalShortEntry15mHigh4)
+        plotSignalBox(signalShortEntry15mLow4, signalShortEntry15mHigh4, "Short", true, 1.5)
+    if not na(signalShortEntry15mLow5) and not na(signalShortEntry15mHigh5)
+        plotSignalBox(signalShortEntry15mLow5, signalShortEntry15mHigh5, "Short", true, 2)
 
-// Plot 1h signals
-if not na(signalLongEntry1hLow1) and not na(signalLongEntry1hHigh1)
-    plotSignalBox(signalLongEntry1hLow1, signalLongEntry1hHigh1, "Long", is1h, 0)
-if not na(signalLongEntry1hLow2) and not na(signalLongEntry1hHigh2)
-    plotSignalBox(signalLongEntry1hLow2, signalLongEntry1hHigh2, "Long", is1h, 0.5)
-if not na(signalLongEntry1hLow3) and not na(signalLongEntry1hHigh3)
-    plotSignalBox(signalLongEntry1hLow3, signalLongEntry1hHigh3, "Long", is1h, 1)
-if not na(signalLongEntry1hLow4) and not na(signalLongEntry1hHigh4)
-    plotSignalBox(signalLongEntry1hLow4, signalLongEntry1hHigh4, "Long", is1h, 1.5)
-if not na(signalLongEntry1hLow5) and not na(signalLongEntry1hHigh5)
-    plotSignalBox(signalLongEntry1hLow5, signalLongEntry1hHigh5, "Long", is1h, 2)
+if is1h
+    if not na(signalLongEntry1hLow1) and not na(signalLongEntry1hHigh1)
+        plotSignalBox(signalLongEntry1hLow1, signalLongEntry1hHigh1, "Long", true, 0)
+    if not na(signalLongEntry1hLow2) and not na(signalLongEntry1hHigh2)
+        plotSignalBox(signalLongEntry1hLow2, signalLongEntry1hHigh2, "Long", true, 0.5)
+    if not na(signalLongEntry1hLow3) and not na(signalLongEntry1hHigh3)
+        plotSignalBox(signalLongEntry1hLow3, signalLongEntry1hHigh3, "Long", true, 1)
+    if not na(signalLongEntry1hLow4) and not na(signalLongEntry1hHigh4)
+        plotSignalBox(signalLongEntry1hLow4, signalLongEntry1hHigh4, "Long", true, 1.5)
+    if not na(signalLongEntry1hLow5) and not na(signalLongEntry1hHigh5)
+        plotSignalBox(signalLongEntry1hLow5, signalLongEntry1hHigh5, "Long", true, 2)
 
-if not na(signalShortEntry1hLow1) and not na(signalShortEntry1hHigh1)
-    plotSignalBox(signalShortEntry1hLow1, signalShortEntry1hHigh1, "Short", is1h, 0)
-if not na(signalShortEntry1hLow2) and not na(signalShortEntry1hHigh2)
-    plotSignalBox(signalShortEntry1hLow2, signalShortEntry1hHigh2, "Short", is1h, 0.5)
-if not na(signalShortEntry1hLow3) and not na(signalShortEntry1hHigh3)
-    plotSignalBox(signalShortEntry1hLow3, signalShortEntry1hHigh3, "Short", is1h, 1)
-if not na(signalShortEntry1hLow4) and not na(signalShortEntry1hHigh4)
-    plotSignalBox(signalShortEntry1hLow4, signalShortEntry1hHigh4, "Short", is1h, 1.5)
-if not na(signalShortEntry1hLow5) and not na(signalShortEntry1hHigh5)
-    plotSignalBox(signalShortEntry1hLow5, signalShortEntry1hHigh5, "Short", is1h, 2)
+    if not na(signalShortEntry1hLow1) and not na(signalShortEntry1hHigh1)
+        plotSignalBox(signalShortEntry1hLow1, signalShortEntry1hHigh1, "Short", true, 0)
+    if not na(signalShortEntry1hLow2) and not na(signalShortEntry1hHigh2)
+        plotSignalBox(signalShortEntry1hLow2, signalShortEntry1hHigh2, "Short", true, 0.5)
+    if not na(signalShortEntry1hLow3) and not na(signalShortEntry1hHigh3)
+        plotSignalBox(signalShortEntry1hLow3, signalShortEntry1hHigh3, "Short", true, 1)
+    if not na(signalShortEntry1hLow4) and not na(signalShortEntry1hHigh4)
+        plotSignalBox(signalShortEntry1hLow4, signalShortEntry1hHigh4, "Short", true, 1.5)
+    if not na(signalShortEntry1hLow5) and not na(signalShortEntry1hHigh5)
+        plotSignalBox(signalShortEntry1hLow5, signalShortEntry1hHigh5, "Short", true, 2)
 
-// Plot 4h signals
-if not na(signalLongEntry4hLow1) and not na(signalLongEntry4hHigh1)
-    plotSignalBox(signalLongEntry4hLow1, signalLongEntry4hHigh1, "Long", is4h, 0)
-if not na(signalLongEntry4hLow2) and not na(signalLongEntry4hHigh2)
-    plotSignalBox(signalLongEntry4hLow2, signalLongEntry4hHigh2, "Long", is4h, 0.5)
-if not na(signalLongEntry4hLow3) and not na(signalLongEntry4hHigh3)
-    plotSignalBox(signalLongEntry4hLow3, signalLongEntry4hHigh3, "Long", is4h, 1)
-if not na(signalLongEntry4hLow4) and not na(signalLongEntry4hHigh4)
-    plotSignalBox(signalLongEntry4hLow4, signalLongEntry4hHigh4, "Long", is4h, 1.5)
-if not na(signalLongEntry4hLow5) and not na(signalLongEntry4hHigh5)
-    plotSignalBox(signalLongEntry4hLow5, signalLongEntry4hHigh5, "Long", is4h, 2)
+if is4h
+    if not na(signalLongEntry4hLow1) and not na(signalLongEntry4hHigh1)
+        plotSignalBox(signalLongEntry4hLow1, signalLongEntry4hHigh1, "Long", true, 0)
+    if not na(signalLongEntry4hLow2) and not na(signalLongEntry4hHigh2)
+        plotSignalBox(signalLongEntry4hLow2, signalLongEntry4hHigh2, "Long", true, 0.5)
+    if not na(signalLongEntry4hLow3) and not na(signalLongEntry4hHigh3)
+        plotSignalBox(signalLongEntry4hLow3, signalLongEntry4hHigh3, "Long", true, 1)
+    if not na(signalLongEntry4hLow4) and not na(signalLongEntry4hHigh4)
+        plotSignalBox(signalLongEntry4hLow4, signalLongEntry4hHigh4, "Long", true, 1.5)
+    if not na(signalLongEntry4hLow5) and not na(signalLongEntry4hHigh5)
+        plotSignalBox(signalLongEntry4hLow5, signalLongEntry4hHigh5, "Long", true, 2)
 
-if not na(signalShortEntry4hLow1) and not na(signalShortEntry4hHigh1)
-    plotSignalBox(signalShortEntry4hLow1, signalShortEntry4hHigh1, "Short", is4h, 0)
-if not na(signalShortEntry4hLow2) and not na(signalShortEntry4hHigh2)
-    plotSignalBox(signalShortEntry4hLow2, signalShortEntry4hHigh2, "Short", is4h, 0.5)
-if not na(signalShortEntry4hLow3) and not na(signalShortEntry4hHigh3)
-    plotSignalBox(signalShortEntry4hLow3, signalShortEntry4hHigh3, "Short", is4h, 1)
-if not na(signalShortEntry4hLow4) and not na(signalShortEntry4hHigh4)
-    plotSignalBox(signalShortEntry4hLow4, signalShortEntry4hHigh4, "Short", is4h, 1.5)
-if not na(signalShortEntry4hLow5) and not na(signalShortEntry4hHigh5)
-    plotSignalBox(signalShortEntry4hLow5, signalShortEntry4hHigh5, "Short", is4h, 2)
+    if not na(signalShortEntry4hLow1) and not na(signalShortEntry4hHigh1)
+        plotSignalBox(signalShortEntry4hLow1, signalShortEntry4hHigh1, "Short", true, 0)
+    if not na(signalShortEntry4hLow2) and not na(signalShortEntry4hHigh2)
+        plotSignalBox(signalShortEntry4hLow2, signalShortEntry4hHigh2, "Short", true, 0.5)
+    if not na(signalShortEntry4hLow3) and not na(signalShortEntry4hHigh3)
+        plotSignalBox(signalShortEntry4hLow3, signalShortEntry4hHigh3, "Short", true, 1)
+    if not na(signalShortEntry4hLow4) and not na(signalShortEntry4hHigh4)
+        plotSignalBox(signalShortEntry4hLow4, signalShortEntry4hHigh4, "Short", true, 1.5)
+    if not na(signalShortEntry4hLow5) and not na(signalShortEntry4hHigh5)
+        plotSignalBox(signalShortEntry4hLow5, signalShortEntry4hHigh5, "Short", true, 2)
 
-// Plot 1d signals
-if not na(signalLongEntry1dLow1) and not na(signalLongEntry1dHigh1)
-    plotSignalBox(signalLongEntry1dLow1, signalLongEntry1dHigh1, "Long", is1d, 0)
-if not na(signalLongEntry1dLow2) and not na(signalLongEntry1dHigh2)
-    plotSignalBox(signalLongEntry1dLow2, signalLongEntry1dHigh2, "Long", is1d, 0.5)
-if not na(signalLongEntry1dLow3) and not na(signalLongEntry1dHigh3)
-    plotSignalBox(signalLongEntry1dLow3, signalLongEntry1dHigh3, "Long", is1d, 1)
-if not na(signalLongEntry1dLow4) and not na(signalLongEntry1dHigh4)
-    plotSignalBox(signalLongEntry1dLow4, signalLongEntry1dHigh4, "Long", is1d, 1.5)
-if not na(signalLongEntry1dLow5) and not na(signalLongEntry1dHigh5)
-    plotSignalBox(signalLongEntry1dLow5, signalLongEntry1dHigh5, "Long", is1d, 2)
+if is1d
+    if not na(signalLongEntry1dLow1) and not na(signalLongEntry1dHigh1)
+        plotSignalBox(signalLongEntry1dLow1, signalLongEntry1dHigh1, "Long", true, 0)
+    if not na(signalLongEntry1dLow2) and not na(signalLongEntry1dHigh2)
+        plotSignalBox(signalLongEntry1dLow2, signalLongEntry1dHigh2, "Long", true, 0.5)
+    if not na(signalLongEntry1dLow3) and not na(signalLongEntry1dHigh3)
+        plotSignalBox(signalLongEntry1dLow3, signalLongEntry1dHigh3, "Long", true, 1)
+    if not na(signalLongEntry1dLow4) and not na(signalLongEntry1dHigh4)
+        plotSignalBox(signalLongEntry1dLow4, signalLongEntry1dHigh4, "Long", true, 1.5)
+    if not na(signalLongEntry1dLow5) and not na(signalLongEntry1dHigh5)
+        plotSignalBox(signalLongEntry1dLow5, signalLongEntry1dHigh5, "Long", true, 2)
 
-if not na(signalShortEntry1dLow1) and not na(signalShortEntry1dHigh1)
-    plotSignalBox(signalShortEntry1dLow1, signalShortEntry1dHigh1, "Short", is1d, 0)
-if not na(signalShortEntry1dLow2) and not na(signalShortEntry1dHigh2)
-    plotSignalBox(signalShortEntry1dLow2, signalShortEntry1dHigh2, "Short", is1d, 0.5)
-if not na(signalShortEntry1dLow3) and not na(signalShortEntry1dHigh3)
-    plotSignalBox(signalShortEntry1dLow3, signalShortEntry1dHigh3, "Short", is1d, 1)
-if not na(signalShortEntry1dLow4) and not na(signalShortEntry1dHigh4)
-    plotSignalBox(signalShortEntry1dLow4, signalShortEntry1dHigh4, "Short", is1d, 1.5)
-if not na(signalShortEntry1dLow5) and not na(signalShortEntry1dHigh5)
-    plotSignalBox(signalShortEntry1dLow5, signalShortEntry1dHigh5, "Short", is1d, 2)
+    if not na(signalShortEntry1dLow1) and not na(signalShortEntry1dHigh1)
+        plotSignalBox(signalShortEntry1dLow1, signalShortEntry1dHigh1, "Short", true, 0)
+    if not na(signalShortEntry1dLow2) and not na(signalShortEntry1dHigh2)
+        plotSignalBox(signalShortEntry1dLow2, signalShortEntry1dHigh2, "Short", true, 0.5)
+    if not na(signalShortEntry1dLow3) and not na(signalShortEntry1dHigh3)
+        plotSignalBox(signalShortEntry1dLow3, signalShortEntry1dHigh3, "Short", true, 1)
+    if not na(signalShortEntry1dLow4) and not na(signalShortEntry1dHigh4)
+        plotSignalBox(signalShortEntry1dLow4, signalShortEntry1dHigh4, "Short", true, 1.5)
+    if not na(signalShortEntry1dLow5) and not na(signalShortEntry1dHigh5)
+        plotSignalBox(signalShortEntry1dLow5, signalShortEntry1dHigh5, "Short", true, 2)
 
 // Alert conditions
 alertcondition(
@@ -245,7 +233,7 @@ alertcondition(
     is4hLong1 or is4hLong2 or is4hLong3 or is4hLong4 or is4hLong5 or 
     is4hShort1 or is4hShort2 or is4hShort3 or is4hShort4 or is4hShort5 or 
     is1dLong1 or is1dLong2 or is1dLong3 or is1dLong4 or is1dLong5 or 
-    is1dShort1 or is1dShort2 or is1dShort3 or is1dShort4 or is1dShort5, 
-    title="THOR Signal Zone Alert", 
+    is1dShort1 or is1dShort2 or is1dShort3 or is1dShort4 or is1dShort5,
+    title="THOR Signal Zone Alert",
     message="THOR Signal Zone Alert"
 )
