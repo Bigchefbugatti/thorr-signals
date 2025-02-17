@@ -112,14 +112,14 @@ var float signalLongEntry1dHigh4 = na
 var float signalLongEntry1dLow5 = na
 var float signalLongEntry1dHigh5 = na
 
-var float signalShortEntry1dLow1 = na
-var float signalShortEntry1dHigh1 = na
-var float signalShortEntry1dLow2 = na
-var float signalShortEntry1dHigh2 = na
-var float signalShortEntry1dLow3 = na
-var float signalShortEntry1dHigh3 = na
-var float signalShortEntry1dLow4 = na
-var float signalShortEntry1dHigh4 = na
+var float signalShortEntry1dLow1 = 5.64493000
+var float signalShortEntry1dHigh1 = 5.71561000
+var float signalShortEntry1dLow2 = 4.52336000
+var float signalShortEntry1dHigh2 = 4.72674000
+var float signalShortEntry1dLow3 = 3.82560000
+var float signalShortEntry1dHigh3 = 3.99373000
+var float signalShortEntry1dLow4 = 3.88856000
+var float signalShortEntry1dHigh4 = 3.93486000
 var float signalShortEntry1dLow5 = na
 var float signalShortEntry1dHigh5 = na
 
