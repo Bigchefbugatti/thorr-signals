@@ -34,8 +34,8 @@ priceInZone(price, low, high) => price >= math.min(low, high) and price <= math.
 // Signal Variables
 var float signalLongEntry15mLow1 = 2.84400000
 var float signalLongEntry15mHigh1 = 2.89032000
-var float signalLongEntry15mLow2 = 2.03552000
-var float signalLongEntry15mHigh2 = 2.09593000
+var float signalLongEntry15mLow2 = na
+var float signalLongEntry15mHigh2 = na
 var float signalLongEntry15mLow3 = na
 var float signalLongEntry15mHigh3 = na
 var float signalLongEntry15mLow4 = na
@@ -43,8 +43,8 @@ var float signalLongEntry15mHigh4 = na
 var float signalLongEntry15mLow5 = na
 var float signalLongEntry15mHigh5 = na
 
-var float signalShortEntry15mLow1 = 2.98884000
-var float signalShortEntry15mHigh1 = 2.99276000
+var float signalShortEntry15mLow1 = na
+var float signalShortEntry15mHigh1 = na
 var float signalShortEntry15mLow2 = na
 var float signalShortEntry15mHigh2 = na
 var float signalShortEntry15mLow3 = na
