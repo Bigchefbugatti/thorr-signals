@@ -55,19 +55,19 @@ var float signalShortEntry15mLow5 = na
 var float signalShortEntry15mHigh5 = na
 
 // 1h timeframe signals
-var float signalLongEntry1hLow1 = na
-var float signalLongEntry1hHigh1 = na
-var float signalLongEntry1hLow2 = na
-var float signalLongEntry1hHigh2 = na
-var float signalLongEntry1hLow3 = na
-var float signalLongEntry1hHigh3 = na
+var float signalLongEntry1hLow1 = 0.0000153691
+var float signalLongEntry1hHigh1 = 0.0000154199
+var float signalLongEntry1hLow2 = 0.0000150714
+var float signalLongEntry1hHigh2 = 0.0000150800
+var float signalLongEntry1hLow3 = 0.0000140100
+var float signalLongEntry1hHigh3 = 0.0000142494
 var float signalLongEntry1hLow4 = na
 var float signalLongEntry1hHigh4 = na
 var float signalLongEntry1hLow5 = na
 var float signalLongEntry1hHigh5 = na
 
-var float signalShortEntry1hLow1 = na
-var float signalShortEntry1hHigh1 = na
+var float signalShortEntry1hLow1 = 0.0000180291
+var float signalShortEntry1hHigh1 = 0.0000181300
 var float signalShortEntry1hLow2 = na
 var float signalShortEntry1hHigh2 = na
 var float signalShortEntry1hLow3 = na
