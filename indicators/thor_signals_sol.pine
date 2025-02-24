@@ -32,19 +32,19 @@ plotSignalBox(entryLow, entryHigh, signalType, timeframeCondition, offsetLevel) 
 priceInZone(price, low, high) => price >= math.min(low, high) and price <= math.max(low, high)
 
 // Signal Variables
-var float signalLongEntry15mLow1 = 168.892
-var float signalLongEntry15mHigh1 = 169.319
-var float signalLongEntry15mLow2 = 166.030
-var float signalLongEntry15mHigh2 = 167.040
-var float signalLongEntry15mLow3 = 163.042
-var float signalLongEntry15mHigh3 = 163.326
+var float signalLongEntry15mLow1 = na
+var float signalLongEntry15mHigh1 = na
+var float signalLongEntry15mLow2 = na
+var float signalLongEntry15mHigh2 = na
+var float signalLongEntry15mLow3 = na
+var float signalLongEntry15mHigh3 = na
 var float signalLongEntry15mLow4 = na
 var float signalLongEntry15mHigh4 = na
 var float signalLongEntry15mLow5 = na
 var float signalLongEntry15mHigh5 = na
 
-var float signalShortEntry15mLow1 = 177.786
-var float signalShortEntry15mHigh1 = 178.067
+var float signalShortEntry15mLow1 = na
+var float signalShortEntry15mHigh1 = na
 var float signalShortEntry15mLow2 = na
 var float signalShortEntry15mHigh2 = na
 var float signalShortEntry15mLow3 = na
@@ -55,21 +55,21 @@ var float signalShortEntry15mLow5 = na
 var float signalShortEntry15mHigh5 = na
 
 // 1h timeframe signals
-var float signalLongEntry1hLow1 = 163.042
-var float signalLongEntry1hHigh1 = 163.326
-var float signalLongEntry1hLow2 = 157.627
-var float signalLongEntry1hHigh2 = 158.496
-var float signalLongEntry1hLow3 = 148.422
-var float signalLongEntry1hHigh3 = 148.850
+var float signalLongEntry1hLow1 = 157.627
+var float signalLongEntry1hHigh1 = 158.496
+var float signalLongEntry1hLow2 = 148.422
+var float signalLongEntry1hHigh2 = 148.850
+var float signalLongEntry1hLow3 = na
+var float signalLongEntry1hHigh3 = na
 var float signalLongEntry1hLow4 = na
 var float signalLongEntry1hHigh4 = na
 var float signalLongEntry1hLow5 = na
 var float signalLongEntry1hHigh5 = na
 
-var float signalShortEntry1hLow1 = 181.108
-var float signalShortEntry1hHigh1 = 182.110
-var float signalShortEntry1hLow2 = 178.626
-var float signalShortEntry1hHigh2 = 179.087
+var float signalShortEntry1hLow1 = na
+var float signalShortEntry1hHigh1 = na
+var float signalShortEntry1hLow2 = na
+var float signalShortEntry1hHigh2 = na
 var float signalShortEntry1hLow3 = na
 var float signalShortEntry1hHigh3 = na
 var float signalShortEntry1hLow4 = na
@@ -101,8 +101,8 @@ var float signalShortEntry4hLow5 = na
 var float signalShortEntry4hHigh5 = na
 
 // 1d timeframe signals
-var float signalLongEntry1dLow1 = 142.350
-var float signalLongEntry1dHigh1 = 151.926
+var float signalLongEntry1dLow1 = na
+var float signalLongEntry1dHigh1 = na
 var float signalLongEntry1dLow2 = na
 var float signalLongEntry1dHigh2 = na
 var float signalLongEntry1dLow3 = na
