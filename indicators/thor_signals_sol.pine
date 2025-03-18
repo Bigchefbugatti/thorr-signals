@@ -78,25 +78,25 @@ var float signalShortEntry1hLow5 = na
 var float signalShortEntry1hHigh5 = na
 
 // 4h timeframe signals
-var float signalLongEntry4hLow1 = na
-var float signalLongEntry4hHigh1 = na
-var float signalLongEntry4hLow2 = na
-var float signalLongEntry4hHigh2 = na
-var float signalLongEntry4hLow3 = na
-var float signalLongEntry4hHigh3 = na
+var float signalLongEntry4hLow1 = 116.419
+var float signalLongEntry4hHigh1 = 117.893
+var float signalLongEntry4hLow2 = 109.491
+var float signalLongEntry4hHigh2 = 110.897
+var float signalLongEntry4hLow3 = 89.567
+var float signalLongEntry4hHigh3 = 94.440
 var float signalLongEntry4hLow4 = na
 var float signalLongEntry4hHigh4 = na
 var float signalLongEntry4hLow5 = na
 var float signalLongEntry4hHigh5 = na
 
-var float signalShortEntry4hLow1 = na
-var float signalShortEntry4hHigh1 = na
-var float signalShortEntry4hLow2 = na
-var float signalShortEntry4hHigh2 = na
-var float signalShortEntry4hLow3 = na
-var float signalShortEntry4hHigh3 = na
-var float signalShortEntry4hLow4 = na
-var float signalShortEntry4hHigh4 = na
+var float signalShortEntry4hLow1 = 164.025
+var float signalShortEntry4hHigh1 = 166.700
+var float signalShortEntry4hLow2 = 158.217
+var float signalShortEntry4hHigh2 = 159.360
+var float signalShortEntry4hLow3 = 148.050
+var float signalShortEntry4hHigh3 = 148.354
+var float signalShortEntry4hLow4 = 133.519
+var float signalShortEntry4hHigh4 = 134.288
 var float signalShortEntry4hLow5 = na
 var float signalShortEntry4hHigh5 = na
 
