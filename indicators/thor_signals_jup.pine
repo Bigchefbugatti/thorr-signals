@@ -45,10 +45,10 @@ var float signalLongEntry15mHigh5 = na
 
 var float signalShortEntry15mLow1 = 0.53980000
 var float signalShortEntry15mHigh1 = 0.54060000
-var float signalShortEntry15mLow2 = 0.53258000
-var float signalShortEntry15mHigh2 = 0.53410000
-var float signalShortEntry15mLow3 = 0.52138000
-var float signalShortEntry15mHigh3 = 0.52260000
+var float signalShortEntry15mLow2 = na
+var float signalShortEntry15mHigh2 = na
+var float signalShortEntry15mLow3 = na
+var float signalShortEntry15mHigh3 = na
 var float signalShortEntry15mLow4 = na
 var float signalShortEntry15mHigh4 = na
 var float signalShortEntry15mLow5 = na
@@ -66,8 +66,8 @@ var float signalLongEntry1hHigh4 = na
 var float signalLongEntry1hLow5 = na
 var float signalLongEntry1hHigh5 = na
 
-var float signalShortEntry1hLow1 = 0.53987000
-var float signalShortEntry1hHigh1 = 0.54510000
+var float signalShortEntry1hLow1 = na
+var float signalShortEntry1hHigh1 = na
 var float signalShortEntry1hLow2 = na
 var float signalShortEntry1hHigh2 = na
 var float signalShortEntry1hLow3 = na
