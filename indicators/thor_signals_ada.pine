@@ -32,10 +32,10 @@ plotSignalBox(entryLow, entryHigh, signalType, timeframeCondition, offsetLevel) 
 priceInZone(price, low, high) => price >= math.min(low, high) and price <= math.max(low, high)
 
 // Signal Variables
-var float signalLongEntry15mLow1 = na
-var float signalLongEntry15mHigh1 = na
-var float signalLongEntry15mLow2 = na
-var float signalLongEntry15mHigh2 = na
+var float signalLongEntry15mLow1 = 0.60370000
+var float signalLongEntry15mHigh1 = 0.60410000
+var float signalLongEntry15mLow2 = 0.54280000
+var float signalLongEntry15mHigh2 = 0.54600000
 var float signalLongEntry15mLow3 = na
 var float signalLongEntry15mHigh3 = na
 var float signalLongEntry15mLow4 = na
@@ -43,8 +43,8 @@ var float signalLongEntry15mHigh4 = na
 var float signalLongEntry15mLow5 = na
 var float signalLongEntry15mHigh5 = na
 
-var float signalShortEntry15mLow1 = na
-var float signalShortEntry15mHigh1 = na
+var float signalShortEntry15mLow1 = 0.63750000
+var float signalShortEntry15mHigh1 = 0.63800000
 var float signalShortEntry15mLow2 = na
 var float signalShortEntry15mHigh2 = na
 var float signalShortEntry15mLow3 = na
@@ -78,10 +78,10 @@ var float signalShortEntry1hLow5 = na
 var float signalShortEntry1hHigh5 = na
 
 // 4h timeframe signals
-var float signalLongEntry4hLow1 = 0.48740000
-var float signalLongEntry4hHigh1 = 0.50190000
-var float signalLongEntry4hLow2 = 0.17960000
-var float signalLongEntry4hHigh2 = 0.21270000
+var float signalLongEntry4hLow1 = na
+var float signalLongEntry4hHigh1 = na
+var float signalLongEntry4hLow2 = na
+var float signalLongEntry4hHigh2 = na
 var float signalLongEntry4hLow3 = na
 var float signalLongEntry4hHigh3 = na
 var float signalLongEntry4hLow4 = na
