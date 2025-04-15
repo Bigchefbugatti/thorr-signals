@@ -32,8 +32,8 @@ plotSignalBox(entryLow, entryHigh, signalType, timeframeCondition, offsetLevel) 
 priceInZone(price, low, high) => price >= math.min(low, high) and price <= math.max(low, high)
 
 // Signal Variables
-var float signalLongEntry15mLow1 = na
-var float signalLongEntry15mHigh1 = na
+var float signalLongEntry15mLow1 = 128.010
+var float signalLongEntry15mHigh1 = 128.590
 var float signalLongEntry15mLow2 = na
 var float signalLongEntry15mHigh2 = na
 var float signalLongEntry15mLow3 = na
@@ -43,8 +43,8 @@ var float signalLongEntry15mHigh4 = na
 var float signalLongEntry15mLow5 = na
 var float signalLongEntry15mHigh5 = na
 
-var float signalShortEntry15mLow1 = 135.092
-var float signalShortEntry15mHigh1 = 135.413
+var float signalShortEntry15mLow1 = na
+var float signalShortEntry15mHigh1 = na
 var float signalShortEntry15mLow2 = na
 var float signalShortEntry15mHigh2 = na
 var float signalShortEntry15mLow3 = na
@@ -66,8 +66,8 @@ var float signalLongEntry1hHigh4 = na
 var float signalLongEntry1hLow5 = na
 var float signalLongEntry1hHigh5 = na
 
-var float signalShortEntry1hLow1 = 141.164
-var float signalShortEntry1hHigh1 = 143.745
+var float signalShortEntry1hLow1 = na
+var float signalShortEntry1hHigh1 = na
 var float signalShortEntry1hLow2 = na
 var float signalShortEntry1hHigh2 = na
 var float signalShortEntry1hLow3 = na
@@ -78,8 +78,8 @@ var float signalShortEntry1hLow5 = na
 var float signalShortEntry1hHigh5 = na
 
 // 4h timeframe signals
-var float signalLongEntry4hLow1 = 89.567
-var float signalLongEntry4hHigh1 = 94.440
+var float signalLongEntry4hLow1 = na
+var float signalLongEntry4hHigh1 = na
 var float signalLongEntry4hLow2 = na
 var float signalLongEntry4hHigh2 = na
 var float signalLongEntry4hLow3 = na
@@ -89,8 +89,8 @@ var float signalLongEntry4hHigh4 = na
 var float signalLongEntry4hLow5 = na
 var float signalLongEntry4hHigh5 = na
 
-var float signalShortEntry4hLow1 = 140.807
-var float signalShortEntry4hHigh1 = 141.798
+var float signalShortEntry4hLow1 = na
+var float signalShortEntry4hHigh1 = na
 var float signalShortEntry4hLow2 = na
 var float signalShortEntry4hHigh2 = na
 var float signalShortEntry4hLow3 = na
@@ -112,10 +112,10 @@ var float signalLongEntry1dHigh4 = na
 var float signalLongEntry1dLow5 = na
 var float signalLongEntry1dHigh5 = na
 
-var float signalShortEntry1dLow1 = 179.789
-var float signalShortEntry1dHigh1 = 191.475
-var float signalShortEntry1dLow2 = 161.700
-var float signalShortEntry1dHigh2 = 162.169
+var float signalShortEntry1dLow1 = na
+var float signalShortEntry1dHigh1 = na
+var float signalShortEntry1dLow2 = na
+var float signalShortEntry1dHigh2 = na
 var float signalShortEntry1dLow3 = na
 var float signalShortEntry1dHigh3 = na
 var float signalShortEntry1dLow4 = na
