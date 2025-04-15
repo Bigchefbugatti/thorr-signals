@@ -89,10 +89,10 @@ var float signalLongEntry4hHigh4 = na
 var float signalLongEntry4hLow5 = na
 var float signalLongEntry4hHigh5 = na
 
-var float signalShortEntry4hLow1 = na
-var float signalShortEntry4hHigh1 = na
-var float signalShortEntry4hLow2 = na
-var float signalShortEntry4hHigh2 = na
+var float signalShortEntry4hLow1 = 2.45556000
+var float signalShortEntry4hHigh1 = 2.49354000
+var float signalShortEntry4hLow2 = 2.19494000
+var float signalShortEntry4hHigh2 = 2.23652000
 var float signalShortEntry4hLow3 = na
 var float signalShortEntry4hHigh3 = na
 var float signalShortEntry4hLow4 = na
